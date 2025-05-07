@@ -11,17 +11,14 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.merge = merge;
 function radixSort(collection) {
-    var table = { 0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: [] };
+    // create a table to store the number by digit
+    var table = [[], [], [], [], [], [], [], [], [], []];
+    // map item - min to get the positive value this able to sort the negative value
     var min = Math.min.apply(Math, collection);
-    // map item - min to get the positive value
     var result = collection.map(function (item) { return item - min; });
-    var maxDigit = 0;
-    for (var i = 0; i < collection.length; i++) {
-        var digit = Math.ceil(Math.log(collection[i]));
-        if (digit > maxDigit) {
-            maxDigit = digit;
-        }
-    }
+    // get the max digit of the number
+    var maxDigit = Math.ceil(Math.log(Math.max.apply(Math, result)));
+    // sort the number by digit
     for (var i = 0; i < maxDigit; i++) {
         for (var j = 0; j < result.length; j++) {
             var digit = Math.floor((result[j] % Math.pow(10, (i + 1))) / Math.pow(10, i));
@@ -45,7 +42,7 @@ function merge(collection_1, collection_2, collection_3) {
     var result = radixSort(mergedCollection);
     return result;
 }
-var collection_1 = [-1, 2, -3, 4, 5, 6, 7, 8, 9, 10];
+var collection_1 = [-3, -1, 4, 5, 6, 7, 8, 9, 10];
 var collection_2 = [20, 19, 18, 17, 16, 15, 14, 13, 12, 11];
 var collection_3 = [21, 22, 23, 24, 25, 26, 27, 28, 29, 30];
 console.log(merge(collection_1, collection_2, collection_3));
