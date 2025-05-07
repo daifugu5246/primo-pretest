@@ -1,15 +1,21 @@
 function radixSort(collection: number[]) : number[] {
+    // create a table to store the number by digit
     let table: {[key: number]: number[]} = {0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: []};
+    // map item - min to get the positive value this able to sort the negative value
     let min : number = Math.min(...collection);
-    // map item - min to get the positive value
     let result = collection.map((item) => item - min);
+    
     let maxDigit: number = 0;
+
+    // get the max digit of the number
     for (let i = 0; i < collection.length; i++) {
         let digit: number = Math.ceil(Math.log(collection[i]));
         if (digit > maxDigit) {
             maxDigit = digit;
         }
     }
+
+    // sort the number by digit
     for (let i = 0; i < maxDigit; i++) {
         for (let j = 0; j < result.length; j++) {
             let digit: number = Math.floor((result[j] % 10 ** (i + 1)) / 10 ** i);
@@ -25,6 +31,7 @@ function radixSort(collection: number[]) : number[] {
             table[j] = [];
         }
     }
+
     // map item + min to get the original value
     result = result.map((item) => item + min);
     return result;
